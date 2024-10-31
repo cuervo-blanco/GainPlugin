@@ -3,7 +3,7 @@
 
 #include "GainPlugin.h"
 
-class GainPluginProcessor : public Gainplugin {
+class GainPluginProcessor : public GainPlugin {
     public: 
         GainPluginProcessor();
         ~GainPluginProcessor() override;

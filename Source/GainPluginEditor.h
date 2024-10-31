@@ -8,7 +8,7 @@ class GainPluginEditor : public juce::AudioProcessorEditor {
         GainPluginEditor(GainPluginProcessor& p);
         ~GainPluginEditor() override;
 
-        void paint(juce::Graphic&) override;
+        void paint(juce::Graphics& g) override;
         void resized() override;
 
     private: 

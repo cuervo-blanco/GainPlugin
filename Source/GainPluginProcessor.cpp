@@ -1,4 +1,8 @@
 #include "GainPluginProcessor.h"
 
-GainPluginProcessor::GainPluginProcessor() {}
-GainPluginProcessor::~GainPluginPocessor() {}
+juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() {
+    return new GainPluginProcessor();
+}
+GainPluginProcessor::GainPluginProcessor() : GainPlugin() {}
+GainPluginProcessor::~GainPluginProcessor() {}
+

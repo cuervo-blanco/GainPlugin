@@ -18,12 +18,12 @@ class GainPlugin : public juce::AudioProcessor {
         const juce::String getName() const override;
         bool acceptsMidi() const override;
         bool producesMidi() const override;
-        bool idMidiEffect() const override;
+        bool isMidiEffect() const override;
         double getTailLengthSeconds() const override;
 
         int getNumPrograms() override;
         int getCurrentProgram() override;
-        void setCurrentProgram() override;
+        void setCurrentProgram(int index) override;
         const juce::String getProgramName(int index) override;
         void changeProgramName(int index, const juce::String& newName) override;
 

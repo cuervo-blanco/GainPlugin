@@ -1,7 +1,8 @@
 #include "GainPlugin.h"
 
+
 GainPlugin::GainPlugin() 
-    : Audio Processor(
+    : AudioProcessor(
             BusesProperties()
             .withInput("Input", juce::AudioChannelSet::stereo(), true)
             .withOutput("Output", juce::AudioChannelSet::stereo(), true)
@@ -34,14 +35,16 @@ void GainPlugin::processBlock(
     }   
 }
 
-juce::AudioProcessEditor* GainPlugin::createEditor() { return nullptr; }
+juce::AudioProcessorEditor* GainPlugin::createEditor() { 
+    return nullptr; 
+}
 
 bool GainPlugin::hasEditor() const { 
     return false; 
 }
 
 const juce::String GainPlugin::getName() const {
-    return JucePlugin_name; 
+    return JucePlugin_Name; 
 }
 
 bool GainPlugin::acceptsMidi() const { 
@@ -52,7 +55,7 @@ bool GainPlugin::producesMidi() const {
     return  false; 
 }
 
-bool GainPugin::isMidiEffect() const { 
+bool GainPlugin::isMidiEffect() const { 
     return false; 
 } 
 
@@ -68,18 +71,14 @@ int GainPlugin::getCurrentProgram() {
     return 0; 
 }
 
-void GainPlugin::setCurrentProgram(int index) {
-}
+void GainPlugin::setCurrentProgram(int index) {}
 
 const juce::String GainPlugin::getProgramName(int index) { 
     return {}; 
 }
 
-void GainPlugin::changeProgramName(int index, const juce::String& newName) {
-}
+void GainPlugin::changeProgramName(int index, const juce::String& newName) {}
 
-void GainPlugin::getStateInformation(juce::MemoryBlock& destData) {
-}
+void GainPlugin::getStateInformation(juce::MemoryBlock& destData) {}
 
-void GainPlugin::setStateInformation(const void* data, int sizeInBytes) {
-}
+void GainPlugin::setStateInformation(const void* data, int sizeInBytes) {}
