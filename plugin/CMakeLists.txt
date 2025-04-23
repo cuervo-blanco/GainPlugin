@@ -43,6 +43,7 @@ target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries_system(${PROJECT_NAME} PUBLIC juce::juce_audio_utils)
+
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC juce::juce_recommended_config_flags
@@ -50,6 +51,19 @@ target_link_libraries(
            juce::juce_recommended_warning_flags
            GainAssets
 )
+
+if(APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_ICON_FILE Gain.icns)
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+        file(COPY "${RESOURCES_DIR}/icons/Gain.icns" DESTINATION "${CMAKE_BINARY_DIR}/plugin/${PROJECT_NAME}_artefacts/
+                ${CMAKE_BUILD_TYPE}/Standalone/Gain.app/Contents/Resources"
+        )
+    else()
+        file(COPY "${RESOURCES_DIR}/icons/Gain.icns"
+             DESTINATION "${CMAKE_BINARY_DIR}/plugin/${PROJECT_NAME}_artefacts/Standalone/Gain.app/Contents/Resources"
+        )
+    endif()
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
 
