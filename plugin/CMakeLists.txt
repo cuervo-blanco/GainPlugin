@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 project(AudioPlugin VERSION 0.1.0)
 
 set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/gain")
-set(RESOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/resources/ui")
+set(RESOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/resources")
 
 juce_add_plugin(
     ${PROJECT_NAME}
@@ -31,8 +31,9 @@ juce_add_plugin(
 juce_add_binary_data(
     GainAssets
     SOURCES
-    ${RESOURCES_DIR}/background.png
-    ${RESOURCES_DIR}/knob_strip.png
+    ${RESOURCES_DIR}/ui/background.png
+    ${RESOURCES_DIR}/ui/knob_strip.png
+    ${RESOURCES_DIR}/icons/icon.png
 )
 set(SOURCE_FILES src/PluginEditor.cpp src/PluginProcessor.cpp)
 
