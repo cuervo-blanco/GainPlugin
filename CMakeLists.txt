@@ -1,45 +1,46 @@
-cmake_minimum_required(VERSION 3.15)
-project(GainPlugin VERSION 0.1.0)
+cmake_minimum_required(VERSION 3.22)
 
-include(FetchContent)
+project(Gain)
 
-FetchContent_Declare(
+set(CMAKE_CXX_STANDARD 20)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
+
+include(cmake/cpm.cmake)
+
+cpmaddpackage(
+    NAME
     JUCE
-    GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
-    GIT_TAG 7.0.5 # Specify the desired JUCE version
+    GIT_TAG
+    8.0.6
+    VERSION
+    8.0.6
+    GITHUB_REPOSITORY
+    juce-framework/JUCE
+    SOURCE_DIR
+    ${LIB_DIR}/juce
 )
 
-set(JUCE_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(JUCE_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
-
-FetchContent_MakeAvailable(JUCE)
-
-juce_add_plugin(GainPlugin
-    COMPANY_NAME "tricerebrado"
-    PRODUCT_NAME "GainPlugin"
-    VERSION "0.1.0"
-    DESCRIPTION "A straightforward simple gain plugin"
-    FORMATS VST3 AU
+cpmaddpackage(
+    NAME
+    DOCTEST
+    GIT_TAG
+    v2.4.11
+    VERSION
+    2.4.11
+    GITHUB_REPOSITORY
+    doctest/doctest
+    SOURCE_DIR
+    ${LIB_DIR}/doctest
 )
 
-set(SOURCES
-    Source/GainPlugin.cpp
-    Source/GainPluginProcessor.cpp
-    Source/GainPluginEditor.cpp
-)
+include(cmake/CompilerWarnings.cmake)
+include(cmake/Util.cmake)
 
-set(HEADERS
-    Source/GainPlugin.h
-    Source/GainPluginProcessor.h
-    Source/GainPluginEditor.h
-)
+add_subdirectory(plugin)
 
-target_sources(GainPlugin PRIVATE ${SOURCES} ${HEADERS})
+enable_testing()
 
-target_link_libraries(GainPlugin PRIVATE
-    juce::juce_audio_processors
-    juce::juce_gui_extra
-)
-
-juce_generate_juce_header(GainPlugin)
-
+add_subdirectory(test)
