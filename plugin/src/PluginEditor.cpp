@@ -43,9 +43,6 @@ void AudioPluginAudioProcessorEditor::paint(juce::Graphics& g) {
   gainSlider.setName("Gain");
   gainSlider.setTextValueSuffix(" dB");
   g.drawImage(bg, getLocalBounds().toFloat());
-
-  // g.setColour(juce::Colours::red);
-  // g.drawRect(gainSlider.getBounds());
 }
 
 void AudioPluginAudioProcessorEditor::resized() {
