@@ -55,13 +55,9 @@ target_link_libraries(
 if(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_ICON_FILE Gain.icns)
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-        file(COPY "${RESOURCES_DIR}/icons/Gain.icns" DESTINATION "${CMAKE_BINARY_DIR}/plugin/${PROJECT_NAME}_artefacts/
-                ${CMAKE_BUILD_TYPE}/Standalone/Gain.app/Contents/Resources"
-        )
+        file(COPY "${RESOURCES_DIR}/icons/Gain.icns" DESTINATION "${CMAKE_BINARY_DIR}/plugin/${PROJECT_NAME}_artefacts/${CMAKE_BUILD_TYPE}/Standalone/Gain.app/Contents/Resources")
     else()
-        file(COPY "${RESOURCES_DIR}/icons/Gain.icns"
-             DESTINATION "${CMAKE_BINARY_DIR}/plugin/${PROJECT_NAME}_artefacts/Standalone/Gain.app/Contents/Resources"
-        )
+        file(COPY "${RESOURCES_DIR}/icons/Gain.icns" DESTINATION "${CMAKE_BINARY_DIR}/plugin/${PROJECT_NAME}_artefacts/Standalone/Gain.app/Contents/Resources")
     endif()
 endif()
 
