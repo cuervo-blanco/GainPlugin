@@ -8,16 +8,17 @@ AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor(
     AudioPluginAudioProcessor& p)
     : AudioProcessorEditor(&p),
       processorRef(p),
-      customKnob(
+      customKnob(std::make_unique<Knob>(
           juce::ImageCache::getFromMemory(BinaryData::knob_strip_png,
                                           BinaryData::knob_strip_pngSize),
-          64) {
+          64)) {
   juce::ignoreUnused(processorRef);
   setSize(400, 400);
 
   gainSlider.setSliderStyle(juce::Slider::Rotary);
   gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
-  gainSlider.setLookAndFeel(&customKnob);
+
+  gainSlider.setLookAndFeel(customKnob.get());
 
   gainSlider.setRange(-96.0, 24.0, 0.1);
   gainSlider.setValue(0.0);
@@ -31,6 +32,7 @@ AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor(
 
 AudioPluginAudioProcessorEditor::~AudioPluginAudioProcessorEditor() {
   gainSlider.setLookAndFeel(nullptr);
+  customKnob.reset();
 }
 
 void AudioPluginAudioProcessorEditor::paint(juce::Graphics& g) {

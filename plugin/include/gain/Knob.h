@@ -2,6 +2,7 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 
+namespace audio_plugin {
 class Knob : public juce::LookAndFeel_V4 {
 public:
   Knob(juce::Image knobStrip, int numFrames)
@@ -31,3 +32,4 @@ private:
   juce::Image knobImage;
   int frameCount;
 };
+}  // namespace audio_plugin

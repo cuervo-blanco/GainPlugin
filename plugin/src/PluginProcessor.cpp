@@ -15,11 +15,12 @@ AudioPluginAudioProcessor::AudioPluginAudioProcessor()
       parameters(*this,
                  nullptr,
                  "PARAMETERS",
-                 {std::make_unique<juce::AudioParameterFloat>("gain",
-                                                              "Gain",
-                                                              -96.0f,
-                                                              24.0f,
-                                                              0.0f)}) {
+                 juce::AudioProcessorValueTreeState::ParameterLayout{
+                     std::make_unique<juce::AudioParameterFloat>("gain",
+                                                                 "Gain",
+                                                                 -96.0f,
+                                                                 24.0f,
+                                                                 0.0f)}) {
 }
 
 AudioPluginAudioProcessor::~AudioPluginAudioProcessor() {}
@@ -137,12 +138,20 @@ juce::AudioProcessorEditor* AudioPluginAudioProcessor::createEditor() {
 
 void AudioPluginAudioProcessor::getStateInformation(
     juce::MemoryBlock& destData) {
-  juce::ignoreUnused(destData);
+  if (auto xmlState = parameters.copyState().createXml()) {
+    copyXmlToBinary(*xmlState, destData);
+  }
 }
 
 void AudioPluginAudioProcessor::setStateInformation(const void* data,
                                                     int sizeInBytes) {
-  juce::ignoreUnused(data, sizeInBytes);
+  if (auto xmlState = getXmlFromBinary(data, sizeInBytes)) {
+    if (xmlState->hasTagName("PARAMETERS")) {
+      parameters.replaceState(juce::ValueTree::fromXml(*xmlState));
+    } else {
+      DBG("Tag mismatch: skipping load");
+    }
+  }
 }
 }  // namespace audio_plugin
 

@@ -19,7 +19,7 @@ private:
   std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>
       gainAttachment;
 
-  Knob customKnob;
+  std::unique_ptr<Knob> customKnob;
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioPluginAudioProcessorEditor)
 };
 }  // namespace audio_plugin
